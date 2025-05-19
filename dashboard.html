@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>YT SnapNote - My Notes</title>
+</head>
+<body class="dashboard">
+  <header>
+    <h1 class="title">YT SnapNote</h1>
+    <p class="subtitle">Your YouTube video notes</p>
+  </header>
+  
+  <main>
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Search your notes..." class="search-input">
+      <button id="clearAllBtn" class="btn danger">Clear All Notes</button>
+    </div>
+    
+    <div id="notesContainer" class="notes-container">
+      <!-- Notes will be dynamically added here -->
+      <div class="empty-state hidden" id="emptyState">
+        <p>You haven't saved any notes yet.</p>
+        <p>Go to YouTube and click the YT SnapNote icon to get started!</p>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>YT SnapNote &copy; 2025</p>
+  </footer>
+  
+  <div id="confirmDialog" class="modal hidden">
+    <div class="modal-content">
+      <h2>Confirm Deletion</h2>
+      <p>Are you sure you want to delete all notes? This cannot be undone.</p>
+      <div class="modal-actions">
+        <button id="cancelDelete" class="btn secondary">Cancel</button>
+        <button id="confirmDelete" class="btn danger">Delete All</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="dashboard.js"></script>
+</body>
+</html>

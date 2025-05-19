@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>YT SnapNote</title>
+</head>
+<body class="popup">
+  <div class="popup-container">
+    <h1 class="title">YT SnapNote</h1>
+    <div id="notOnYouTube" class="message hidden">
+      <p>Please navigate to a YouTube video to use this extension.</p>
+    </div>
+    <div id="onYouTube" class="actions">
+      <button id="captureBtn" class="btn primary">Take Snapshot</button>
+      <button id="viewNotesBtn" class="btn secondary">View My Notes</button>
+    </div>
+    <!-- Add this where you want the notes to appear -->
+    <!-- Replace the recentNotes div with this -->
+    <div class="notes-container">
+      <!-- Add this before the recentNotes div -->
+      <h2 class="section-title">My Recent Notes</h2>
+      <div id="recentNotes" class="recent-notes-section">
+        <!-- Notes will be loaded here -->
+      </div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

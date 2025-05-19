@@ -1,0 +1,49 @@
+/* Add these styles to your popup.css */
+.recent-notes-section {
+  margin-top: 15px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+}
+
+.note-item {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.note-screenshot {
+  width: 80px;
+  margin-right: 10px;
+}
+
+.note-screenshot img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.note-content {
+  flex: 1;
+}
+
+.note-content h3 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+}
+
+.note-text {
+  font-size: 12px;
+  color: #555;
+  margin: 5px 0;
+}
+
+.note-meta {
+  font-size: 11px;
+  color: #777;
+}
+
+.no-notes {
+  text-align: center;
+  color: #777;
+  padding: 10px;
+}

@@ -1,0 +1,425 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Roboto', -apple-system, system-ui, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.5;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Button Styles */
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn.primary {
+  background: #FF0000;
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #D90000;
+}
+
+.btn.secondary {
+  background: #f1f1f1;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.btn.secondary:hover {
+  background: #e5e5e5;
+}
+
+.btn.danger {
+  background: #f44336;
+  color: white;
+}
+
+.btn.danger:hover {
+  background: #d32f2f;
+}
+
+/* Popup Styles */
+.popup {
+  width: 300px;
+  min-height: 200px;
+}
+
+.popup-container {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.title {
+  color: #FF0000;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.message {
+  text-align: center;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+/* Dashboard Styles */
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.title {
+  color: #FF0000;
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #666;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  flex-grow: 1;
+  min-width: 200px;
+  font-size: 16px;
+}
+
+.notes-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.note-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.note-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.note-card-header {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-title {
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 240px;
+}
+
+.delete-note {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  font-size: 18px;
+  color: #999;
+  cursor: pointer;
+  font-weight: bold;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.delete-note:hover {
+  color: #f44336;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.note-thumbnail {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.note-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.timestamp-badge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.note-content {
+  padding: 12px;
+  min-height: 60px;
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.note-content p {
+  color: #333;
+  word-break: break-word;
+  font-size: 14px;
+}
+
+.note-footer {
+  padding: 12px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.open-yt {
+  font-size: 12px;
+  padding: 4px 8px;
+  text-decoration: none;
+  display: inline-block;
+  background: #f1f1f1;
+  color: #333;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.open-yt:hover {
+  background: #e0e0e0;
+}
+
+/* Clear All Notes button */
+.btn.danger {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn.danger:hover {
+  background: #d32f2f;
+}
+
+/* Empty state */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #888;
+}
+
+.empty-state p {
+  margin: 10px 0;
+}
+
+/* Modal dialog */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal h2 {
+  margin-bottom: 15px;
+}
+
+.modal p {
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 14px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .notes-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  .controls {
+    flex-direction: column;
+  }
+}
+
+
+/* Add these styles for the notes section */
+/* Popup Notes Section - Specific styles for the popup */
+.popup .recent-notes-section {
+  margin-top: 15px;
+  border-top: 1px solid #ddd;
+  padding-top: 15px;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.popup .note-item {
+  display: flex;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+}
+
+.popup .note-screenshot {
+  width: 80px;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.popup .note-screenshot img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+}
+
+.popup .note-content {
+  flex-grow: 1;
+  overflow: hidden;
+  padding: 0;
+  min-height: auto;
+  max-height: none;
+}
+
+.popup .note-content h3 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popup .note-text {
+  margin: 5px 0;
+  font-size: 12px;
+  color: #555;
+  max-height: 36px;
+  overflow: hidden;
+}
+
+.popup .note-meta {
+  font-size: 11px;
+  color: #777;
+  display: flex;
+  justify-content: space-between;
+  border-top: none;
+  padding: 0;
+}
+
+.popup .no-notes {
+  color: #777;
+  text-align: center;
+  padding: 10px;
+}
+
+.popup .section-title {
+  font-size: 16px;
+  margin: 15px 0 10px;
+  width: 100%;
+  text-align: left;
+}
+
+.popup .video-link {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.popup .video-link:hover {
+  text-decoration: underline;
+}
