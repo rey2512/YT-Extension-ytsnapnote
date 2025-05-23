@@ -1,0 +1,1 @@
+Snapnote is a Chrome extension that lets users capture YouTube video moments with a single keystroke. It takes a snapshot of the screen, stores the current video timestamp and title, and allows users to add quick notes. All data is saved locally in the browser—no internet or account required.
