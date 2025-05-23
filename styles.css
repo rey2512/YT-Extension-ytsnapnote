@@ -423,3 +423,202 @@ footer {
 .popup .video-link:hover {
   text-decoration: underline;
 }
+
+
+/* Add these styles at the end of your CSS file */
+
+/* Dark Mode Styles */
+.dark-mode {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+.dark-mode .title {
+  color: #ff4444;
+}
+
+.dark-mode .subtitle {
+  color: #aaa;
+}
+
+.dark-mode .search-input {
+  background-color: #333;
+  color: #f0f0f0;
+  border-color: #555;
+}
+
+.dark-mode .note-card {
+  background-color: #2a2a2a;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .note-card-header {
+  border-bottom-color: #444;
+}
+
+.dark-mode .note-title {
+  color: #f0f0f0;
+}
+
+.dark-mode .note-content p {
+  color: #ddd;
+}
+
+.dark-mode .note-footer {
+  border-top-color: #444;
+}
+
+.dark-mode .note-date {
+  color: #aaa;
+}
+
+.dark-mode .open-yt {
+  background: #444;
+  color: #f0f0f0;
+}
+
+.dark-mode .open-yt:hover {
+  background: #555;
+}
+
+.dark-mode .btn.secondary {
+  background: #444;
+  color: #f0f0f0;
+  border-color: #555;
+}
+
+.dark-mode .btn.secondary:hover {
+  background: #555;
+}
+
+.dark-mode .empty-state {
+  color: #aaa;
+}
+
+.dark-mode .modal-content {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+}
+
+.dark-mode .delete-note {
+  color: #ccc;
+  background: rgba(50, 50, 50, 0.8);
+}
+
+.dark-mode .delete-note:hover {
+  color: #ff4444;
+  background: rgba(60, 60, 60, 0.9);
+}
+
+/* Small toggle button for dark mode */
+.small-toggle {
+  width: 45px;
+  height: 45px;
+  padding: 6px;
+  border-radius: 10%;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+#darkModeToggle {
+  margin-left: auto;
+}
+
+
+/* Add these styles for the fullscreen/zoom feature */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.fullscreen-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 80%;
+  overflow: auto;
+}
+
+.fullscreen-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 2px solid #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.fullscreen-note {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+  max-width: 800px;
+  width: 100%;
+  color: #333;
+}
+
+.fullscreen-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.fullscreen-close:hover {
+  background: rgba(255, 0, 0, 0.7);
+}
+
+.fullscreen-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.zoom-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Make the thumbnail clickable */
+.note-thumbnail {
+  cursor: zoom-in;
+}
+
+/* Dark mode adjustments for fullscreen */
+.dark-mode .fullscreen-note {
+  background: rgba(42, 42, 42, 0.9);
+  color: #f0f0f0;
+}

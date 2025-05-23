@@ -11,6 +11,37 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('clearAllBtn').addEventListener('click', function() {
     showConfirmDialog();
   });
+  
+  // Set up dark mode toggle
+  const darkModeToggle = document.createElement('button');
+  darkModeToggle.id = 'darkModeToggle';
+  darkModeToggle.className = 'btn secondary small-toggle';
+  darkModeToggle.innerHTML = '⏾';
+  darkModeToggle.title = 'Toggle Dark Mode';
+  
+  // Add the button to the controls section
+  const controlsSection = document.querySelector('.controls');
+  controlsSection.appendChild(darkModeToggle);
+  
+  // Check if dark mode was previously enabled
+  chrome.storage.local.get(['darkMode'], function(result) {
+    if (result.darkMode) {
+      document.body.classList.add('dark-mode');
+      darkModeToggle.innerHTML = '☀︎';
+    }
+  });
+  
+  // Add event listener for dark mode toggle
+  darkModeToggle.addEventListener('click', function() {
+    document.body.classList.toggle('dark-mode');
+    const isDarkMode = document.body.classList.contains('dark-mode');
+    
+    // Update button text
+    this.innerHTML = isDarkMode ? '☀︎' : '⏾';
+    
+    // Save preference
+    chrome.storage.local.set({ 'darkMode': isDarkMode });
+  });
 });
 
 function loadNotes() {
@@ -31,21 +62,29 @@ function loadNotes() {
     // Clear container
     notesContainer.innerHTML = '';
     
+    // Add unique IDs to notes if they don't have one
+    notes.forEach((note, i) => {
+      if (!note.id) note.id = Date.now() + '-' + i;
+    });
+    
+    // Save notes with IDs back to storage
+    chrome.storage.local.set({ 'snapnotes': notes });
+    
     // Sort notes by timestamp (newest first)
     notes.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
     
     // Add each note to the container
-    notes.forEach(function(note, index) {
-      const noteElement = createNoteCard(note, index);
+    notes.forEach(function(note) {
+      const noteElement = createNoteCard(note);
       notesContainer.appendChild(noteElement);
     });
   });
 }
 
-function createNoteCard(note, index) {
+function createNoteCard(note) {
   const noteCard = document.createElement('div');
   noteCard.className = 'note-card';
-  noteCard.dataset.index = index;
+  noteCard.dataset.id = note.id;
   
   // Format the timestamp properly
   const timestamp = note.timestamp ? new Date(note.timestamp) : new Date();
@@ -63,7 +102,7 @@ function createNoteCard(note, index) {
   noteCard.innerHTML = `
     <div class="note-card-header">
       <div class="note-title">${note.videoTitle || 'YouTube Video'}</div>
-      <button class="delete-note" data-index="${index}">&times;</button>
+      <button class="delete-note" data-id="${note.id}">&times;</button>
     </div>
     <div class="note-thumbnail">
       <img src="${screenshotSrc}" alt="Video snapshot" onerror="this.src='placeholder.png';">
@@ -79,26 +118,116 @@ function createNoteCard(note, index) {
   `;
   
   // Add delete functionality
-  noteCard.querySelector('.delete-note').addEventListener('click', function(e) {
+  const deleteBtn = noteCard.querySelector('.delete-note');
+  deleteBtn.addEventListener('click', function(e) {
     e.stopPropagation();
-    deleteNote(index);
+    const noteId = this.getAttribute('data-id');
+    deleteNote(noteId);
+  });
+  
+  // Add fullscreen functionality
+  const thumbnail = noteCard.querySelector('.note-thumbnail');
+  thumbnail.addEventListener('click', function() {
+    showFullscreenImage(note);
   });
   
   return noteCard;
 }
 
-function deleteNote(index) {
+// Add this new function for fullscreen view
+function showFullscreenImage(note) {
+  // Create fullscreen overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'fullscreen-overlay';
+  
+  // Check if screenshot data exists and is valid
+  const screenshotSrc = note.screenshotDataUrl && 
+                      note.screenshotDataUrl.startsWith('data:image') ? 
+                      note.screenshotDataUrl : 
+                      'placeholder.png';
+  
+  // Format the video time
+  const videoTime = formatVideoTime(note.currentTime);
+  
+  overlay.innerHTML = `
+    <div class="fullscreen-content">
+      <img src="${screenshotSrc}" alt="Video snapshot" class="fullscreen-image" id="zoomableImage">
+      <div class="fullscreen-note">
+        <h2>${note.videoTitle || 'YouTube Video'}</h2>
+        <p>${note.noteText || 'No note text'}</p>
+        <div>Timestamp: ${videoTime}</div>
+      </div>
+      <div class="fullscreen-controls">
+        <button class="zoom-btn" id="zoomIn">Zoom In (+)</button>
+        <button class="zoom-btn" id="zoomOut">Zoom Out (-)</button>
+        <button class="zoom-btn" id="resetZoom">Reset</button>
+      </div>
+    </div>
+    <button class="fullscreen-close">&times;</button>
+  `;
+  
+  document.body.appendChild(overlay);
+  
+  // Add close functionality
+  const closeBtn = overlay.querySelector('.fullscreen-close');
+  closeBtn.addEventListener('click', function() {
+    document.body.removeChild(overlay);
+  });
+  
+  // Add escape key to close
+  document.addEventListener('keydown', function escapeHandler(e) {
+    if (e.key === 'Escape') {
+      document.body.removeChild(overlay);
+      document.removeEventListener('keydown', escapeHandler);
+    }
+  });
+  
+  // Add zoom functionality
+  let zoomLevel = 1;
+  const image = document.getElementById('zoomableImage');
+  
+  document.getElementById('zoomIn').addEventListener('click', function() {
+    zoomLevel += 0.2;
+    updateZoom();
+  });
+  
+  document.getElementById('zoomOut').addEventListener('click', function() {
+    zoomLevel = Math.max(0.5, zoomLevel - 0.2);
+    updateZoom();
+  });
+  
+  document.getElementById('resetZoom').addEventListener('click', function() {
+    zoomLevel = 1;
+    updateZoom();
+  });
+  
+  function updateZoom() {
+    image.style.transform = `scale(${zoomLevel})`;
+    image.style.transformOrigin = 'center center';
+    image.style.transition = 'transform 0.2s ease';
+  }
+}
+
+function deleteNote(noteId) {
   chrome.storage.local.get(['snapnotes'], function(result) {
     let notes = result.snapnotes || [];
     
-    // Remove the note at the specified index
-    notes.splice(index, 1);
+    // Find the note by ID
+    const noteIndex = notes.findIndex(note => note.id === noteId);
     
-    // Save back to storage
-    chrome.storage.local.set({ 'snapnotes': notes }, function() {
-      console.log('Note deleted');
-      loadNotes(); // Refresh the notes list
-    });
+    if (noteIndex !== -1) {
+      // Remove the note with the matching ID
+      notes.splice(noteIndex, 1);
+      
+      // Save back to storage
+      chrome.storage.local.set({ 'snapnotes': notes }, function() {
+        console.log('Note deleted with ID:', noteId);
+        // Refresh the notes list
+        loadNotes();
+      });
+    } else {
+      console.error('Note not found with ID:', noteId);
+    }
   });
 }
 
@@ -138,9 +267,11 @@ function showConfirmDialog() {
   });
   
   document.getElementById('confirmClear').addEventListener('click', function() {
+    // Clear all notes by setting an empty array
     chrome.storage.local.set({ 'snapnotes': [] }, function() {
       console.log('All notes cleared');
-      loadNotes(); // Refresh the notes list
+      // Refresh the notes list
+      loadNotes();
       document.body.removeChild(modal);
     });
   });
